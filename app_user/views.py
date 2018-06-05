@@ -1,0 +1,53 @@
+#!usr/bin/env python
+#-*- coding:utf-8 _*-
+"""
+@author:Airubby
+@file: urls.py
+@time: 2018/06/05
+"""
+
+from django.shortcuts import render,redirect,HttpResponse
+from app_user import models
+import hashlib
+# Create your views here.
+
+def register(request):
+    if request.method == "GET":
+        return render(request,'app_user/register.html')
+    elif request.method=="POST":
+        # 接受用户输入
+        post = request.POST
+        username = post.get('user_name')
+        password = post.get('pwd')
+        cpassword = post.get('cpwd')
+        email = post.get('email')
+
+        # 判断两次密码
+        if password != cpassword:
+            return redirect('/user/register/')
+
+        # 密码加密
+        md5=hashlib.md5()
+        md5.update(password.encode("utf8"))
+        tpassword = md5.hexdigest()
+
+        # 创建对象
+        user = models.UserInfo()
+        user.username = username
+        user.password = tpassword
+        user.email = email
+        user.save()
+        # 注册成功，转到登录页面
+        return redirect('/user/login/')
+
+def register_exist(request):
+    username=request.GET.get('username')
+    count=models.UserInfo.objects.filter(username=username).count()
+    return HttpResponse({'count':count})
+
+
+def login(request):
+    if request.method == "GET":
+        return render(request,'app_user/login.html')
+    elif request.method=="POST":
+        pass
