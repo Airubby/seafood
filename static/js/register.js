@@ -1,5 +1,5 @@
 $(function(){
-
+	console.log(123)
 	var error_name = false;
 	var error_password = false;
 	var error_check_password = false;
@@ -24,13 +24,10 @@ $(function(){
 	});
 
 	$('#allow').click(function() {
-		if($(this).is(':checked'))
-		{
+		if($(this).is(':checked')){
 			error_check = false;
 			$(this).siblings('span').hide();
-		}
-		else
-		{
+		}else{
 			error_check = true;
 			$(this).siblings('span').html('请勾选同意');
 			$(this).siblings('span').show();
@@ -40,16 +37,15 @@ $(function(){
 
 	function check_user_name(){
 		var len = $('#user_name').val().length;
-		if(len<2||len>20)
-		{
+		if(len<2||len>20){
 			$('#user_name').next().html('请输入2-20个字符的用户名')
 			$('#user_name').next().show();
 			error_name = true;
-		}
-		else{
-			$.get('/user/register_exist/?username='+$('#user_name').val(),function (result) {
-				if(result.count==1){
-					$('#user_name').next().html('用户名已经存在').show()
+		}else{
+			$.get('/user/register_exist?username='+$('#user_name').val(),function (result) {
+				if(JSON.parse(result).count==1){
+					$('#user_name').next().html('用户名已经存在');
+					$('#user_name').next().show();
 					error_name=true;
 				}else{
 					$('#user_name').next().hide();
@@ -62,14 +58,11 @@ $(function(){
 
 	function check_pwd(){
 		var len = $('#pwd').val().length;
-		if(len<8||len>20)
-		{
-			$('#pwd').next().html('密码最少8位，最长20位')
+		if(len<6||len>20){
+			$('#pwd').next().html('密码最少6位，最长20位')
 			$('#pwd').next().show();
 			error_password = true;
-		}
-		else
-		{
+		}else{
 			$('#pwd').next().hide();
 			error_password = false;
 		}		
@@ -80,14 +73,11 @@ $(function(){
 		var pass = $('#pwd').val();
 		var cpass = $('#cpwd').val();
 
-		if(pass!=cpass)
-		{
+		if(pass!=cpass){
 			$('#cpwd').next().html('两次输入的密码不一致')
 			$('#cpwd').next().show();
 			error_check_password = true;
-		}
-		else
-		{
+		}else{
 			$('#cpwd').next().hide();
 			error_check_password = false;
 		}		
@@ -97,13 +87,10 @@ $(function(){
 	function check_email(){
 		var re = /^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$/;
 
-		if(re.test($('#email').val()))
-		{
+		if(re.test($('#email').val())){
 			$('#email').next().hide();
 			error_email = false;
-		}
-		else
-		{
+		}else{
 			$('#email').next().html('你输入的邮箱格式不正确')
 			$('#email').next().show();
 			error_check_password = true;
@@ -118,12 +105,9 @@ $(function(){
 		check_cpwd();
 		check_email();
 
-		if(error_name == false && error_password == false && error_check_password == false && error_email == false && error_check == false)
-		{
+		if(error_name == false && error_password == false && error_check_password == false && error_email == false && error_check == false){
 			return true;
-		}
-		else
-		{
+		}else{
 			return false;
 		}
 

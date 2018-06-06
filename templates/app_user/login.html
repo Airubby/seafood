@@ -1,4 +1,6 @@
 {% extends 'base_foot.html' %}
+
+
 	{% block body %}
     <div class="login_top clearfix">
 		<a href="index.html" class="login_logo"><img src="/static/images/logo02.png"></a>
@@ -14,20 +16,46 @@
 					<a href="/user/register/">立即注册</a>
 				</div>
 				<div class="form_input">
-					<form>
-						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
-						<div class="user_error">输入错误</div>
-						<input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
-						<div class="pwd_error">输入错误</div>
+					<form action="/user/login/" method="post">
+                        {% csrf_token %}
+						<input type="text" name="username" value="{{ username }}" id="name_input" class="name_input" placeholder="请输入用户名">
+						<div class="user_error"></div>
+						<input type="password" name="pwd" id="pass_input" value="{{ password }}" class="pass_input" placeholder="请输入密码">
+						<div class="pwd_error"></div>
 						<div class="more_input clearfix">
-							<input type="checkbox" name="">
+							<input type="checkbox" name="jizhu" value="1" checked>
 							<label>记住用户名</label>
 							<a href="#">忘记密码</a>
 						</div>
-						<input type="submit" name="" value="登录" class="input_submit">
+						<input type="button" name="" value="登录" class="input_submit" id="login_form">
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 {% endblock body %}
+
+{% block foot %}
+    <script type="text/javascript">
+        $("#login_form").click(function () {
+            console.log(123123)
+            $.ajax({
+                url:'/user/login/',
+                type:'post',
+                data:{'username':$("#name_input").val(),'pwd':$("#pass_input").val()},
+                success:function (result) {
+                    $(".pwd_error").html('')
+                    $(".user_error").html('')
+                    if(JSON.parse(result).error_pwd){
+                        $(".pwd_error").html(JSON.parse(result).error_pwd)
+                    }
+                    if(JSON.parse(result).error_name){
+                        $(".user_error").html(JSON.parse(result).error_name)
+                    }
+                    console.log(JSON.parse(result))
+                }
+            })
+        })
+
+    </script>
+{% endblock foot %}
