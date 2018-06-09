@@ -35,6 +35,8 @@
 	</div>
 {% endblock body %}
 
+
+
 {% block foot %}
     <script type="text/javascript">
         $("#login_form").click(function () {
@@ -44,6 +46,7 @@
                 type:'post',
                 data:{'username':$("#name_input").val(),'pwd':$("#pass_input").val()},
                 success:function (result) {
+                    console.log(result)
                     $(".pwd_error").html('')
                     $(".user_error").html('')
                     if(JSON.parse(result).error_pwd){
@@ -59,3 +62,5 @@
 
     </script>
 {% endblock foot %}
+
+

@@ -59,7 +59,7 @@ def login(request):
         password=request.POST.get('pwd')
         jizhu=request.POST.get('jizhu',0)  #前端勾选了就获取jizhu的值1，没有就用默认值0
         users=models.UserInfo.objects.filter(username=username)
-        print(len(users))
+
         if len(users)==1:
             md5 = hashlib.md5()
             md5.update(password.encode("utf8"))
@@ -79,5 +79,15 @@ def login(request):
         else:
             context = {'error_name': '用户名错误', 'error_pwd': '', 'username': username, 'password': password}
             return HttpResponse(json.dumps(context))
+
+
+def info(request):
+    print(243)
+    user_email=models.UserInfo.objects.get(id=request.session['user_id']).email
+    context={
+        'user_email':user_email,
+        'user_name':request.session['user_name']
+    }
+    return render(request,'app_user/user_center_info.html',context)
 
 

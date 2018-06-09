@@ -15,6 +15,7 @@ urlpatterns=[
 re_path('register/$', views.register),
 re_path('register_exist/$', views.register_exist),
 re_path('login/$', views.login),
+re_path('info/$', views.info),
 ]
 
 
