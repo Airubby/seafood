@@ -9,11 +9,10 @@
 
 from django.conf.urls import url
 from django.urls import re_path
-from app_user import views
+from backend import views
 
 urlpatterns=[
-re_path('register$', views.register,name='register'),
-re_path('test_api$', views.test_api, name='test_api'),
+    
 ]
 
 

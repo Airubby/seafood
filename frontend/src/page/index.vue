@@ -1,34 +1,39 @@
 <template>
-    <div class="loncom_index">
-        zutai
+    <div class="loncom_content">
+        首页
     </div>
 </template>
+
 
 <script>
 
 export default {
-  created () {
-    
+    created () {
         if(JSON.stringify(sessionStorage.loginInfo) == undefined){
-            this.$message.warning("请登录");
+            this.$message.warning("请登录系统");
             this.$router.push({path:'/login'});
             return;
         }
+       
 
-
-  },
-  mounted() {
-   
-  },
-  data() {
-    return {
+    },
+    mounted() {
         
-    }
-  },
-  methods:{
-    
-  }
-  
+    },
+    data() {
+       return {
+           
+
+       }
+   },
+    methods:{
+        
+
+    },
+    components:{}
 }
 </script>
+
+
+
 

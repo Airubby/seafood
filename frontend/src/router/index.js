@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/page/index'
-import Login from '@/page/login'
 
 Vue.use(Router)
 
@@ -10,13 +8,16 @@ export default new Router({
   routes: [
     {
       path: '',
-      component: Index
+      component: (resolve) => require(['@/page/index'], resolve),
     },{
       path: '/',
-      component: Index
+      component: (resolve) => require(['@/page/index'], resolve),
     },{
       path: '/login',
-      component: Login
+      component: (resolve) => require(['@/page/login'], resolve),
+    },{
+      path: '/register',
+      component: (resolve) => require(['@/page/register'], resolve),
     }
 
   ]

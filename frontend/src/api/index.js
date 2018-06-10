@@ -1,7 +1,7 @@
 
 // 配置API接口地址
 //var root = '/api'  //开发环境
-var root='/ISmac'   //生产环境
+var root=''   //生产环境
 // var root=(function(){
 //     //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp  
 //     var curWwwPath=window.document.location.href;  
@@ -17,6 +17,7 @@ var root='/ISmac'   //生产环境
 console.log(root);
 // 引用axios
 var axios = require('axios')
+axios.defaults.withCredentials = true
 // 自定义判断元素类型JS
 function toType (obj) {
   return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
@@ -49,18 +50,20 @@ function filterNull (o) {
 
 function apiAxios (method, url, params, success, failure) {
   console.log(url);
+  debugger
   if (params) {
     params = filterNull(params)
   }
   axios({
     method: method,
     url: url,
-    data: method === 'POST' || method === 'PUT' ? params : null,
-    params: method === 'GET' || method === 'DELETE' ? params : null,
+    data: method === 'POST' || method === 'GET' ? params : null,
+    params: method === 'POST' || method === 'GET' ? params : null,
     baseURL: root,
     withCredentials: true
   })
   .then(function (res) {
+    console.log(res)
     if(success){
       success(res.data);
     }
@@ -81,6 +84,7 @@ function apiAxios (method, url, params, success, failure) {
     // }
   })
   .catch(function (err) {
+    console.log(err)
     let res = err.response
     if (err) {
       //console.log('api error, HTTP CODE: ' + res.status)
