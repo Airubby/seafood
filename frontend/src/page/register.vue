@@ -18,16 +18,16 @@
                         <el-input v-model="form_info.username" placeholder="请输入用户名"></el-input>
                     </el-form-item>
                     <el-form-item label="密码:" prop="password">
-                        <el-input v-model="form_info.password" placeholder="请输入密码"></el-input>
+                        <el-input v-model="form_info.password" placeholder="请输入密码" type="password"></el-input>
                     </el-form-item>
                     <el-form-item label="确认密码:" prop="cpassword">
-                        <el-input v-model="form_info.cpassword" placeholder="请再次输入密码"></el-input>
+                        <el-input v-model="form_info.cpassword" placeholder="请再次输入密码" type="password"  @keyup.native="keyLogin($event,'ruleForm')"></el-input>
                     </el-form-item>
                     <el-form-item label="邮箱:">
                         <el-input v-model="form_info.email" placeholder="请输入邮箱"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')" size="small">立即注册</el-button>
+                        <el-button type="primary" @click="submitForm('ruleForm')" size="small" @keydown="keyLogin($event,'ruleForm')">立即注册</el-button>
                         <el-button @click="resetForm('ruleForm')" size="small">重置</el-button>
                     </el-form-item>
 				</el-form>
@@ -84,11 +84,21 @@ export default {
   	}
   },
   methods:{
+      keyLogin:function(ev,ruleForm){
+        if(ev.keyCode == 13){
+          this.submitForm(ruleForm);
+        }
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$api.get('/user/register/', this.form_info, r => {
+            this.$api.post('/user/register', this.form_info, r => {
                 console.log(r)
+                if(r.success){
+                    this.$message.success(r.msg);
+                }else{
+                    this.$message.error(r.msg);
+                }
             })
 
           }

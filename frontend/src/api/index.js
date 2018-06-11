@@ -49,8 +49,6 @@ function filterNull (o) {
 */
 
 function apiAxios (method, url, params, success, failure) {
-  console.log(url);
-  debugger
   if (params) {
     params = filterNull(params)
   }

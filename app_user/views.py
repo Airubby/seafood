@@ -15,17 +15,9 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 @csrf_exempt
-def test_api(request):
-    print("222")
-    if request.method=="GET":
-        return HttpResponse(json.dumps({"success":True,"err":'注册成功！'}))
-    elif request.method=="POST":
-        return HttpResponse(json.dumps({"success": False, "err": '注册成功！'}))
-
-@csrf_exempt
 def register(request):
-    print("123")
     if request.method=="POST":
+        print('post')
         # 接受用户输入
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -50,5 +42,5 @@ def register(request):
         # 注册成功，转到登录页面
         return HttpResponse(json.dumps({"success":True,"err":'注册成功！'}))
     elif request.method=="GET":
-        print('2222')
+        print('get')
         return HttpResponse(json.dumps({"success": True, "err": '注册成功！'}))

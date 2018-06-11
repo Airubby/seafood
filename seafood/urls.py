@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import re_path,include
 from django.views.generic import TemplateView
+from app_user import urls
 
 urlpatterns = [
     re_path('admin/', admin.site.urls),

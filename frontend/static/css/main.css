@@ -300,8 +300,10 @@ html,body{height:100%}
 .user_error,.pwd_error{color:#f00;position:absolute;left:0;top:43px;}
 
 .pwd_error{top:110px;}
-
-.more_input{position:absolute;left:0;top:130px;width:100%}
+.info_input{
+	margin-bottom: 20px;
+}
+.more_input{margin-bottom: 30px;}
 
 .more_input input{float:left;margin-top:2px;}
 .more_input label{float:left;margin-left:10px;}

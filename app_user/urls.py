@@ -7,13 +7,13 @@
 """
 
 
-from django.conf.urls import url
 from django.urls import re_path
 from app_user import views
+from app_user import api
 
 urlpatterns=[
-re_path('register$', views.register,name='register'),
-re_path('test_api$', views.test_api, name='test_api'),
+    re_path('register$', api.register,name='register'),
+    re_path('login', api.login,name='login'),
 ]
 
 
