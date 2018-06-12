@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce', #富文本编辑器 pip install django-tinymce
     'app_user',
+    'app_goods',
     'backend',
 ]
 
@@ -134,3 +136,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'frontend/dist/static')
 ]
+
+MEDIA_ROOT=os.path.join(BASE_DIR,'frontend/dist/static/upload')
+#部署的时候传到相应目录比如：MEDIA_ROOT='/www/seafood/static'
+
+#富文本编辑器配置
+TINYMCE_DEFAULT_CONFIG={
+    'theme':'advanced',
+    'width':600,
+    'height':400,
+}
